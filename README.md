@@ -14,15 +14,13 @@ Different errors are treated:
 TODOs:
  - mqtt publish path in the config file
  - make a better installation description
-
-NiceToHave:
- - better errorhandling
+ - better errorhandling with the mqtt server
 
 <b>HowTo-Start:</b>
 
 1.) Install all necessary packages to get you python system to run.
 
-2.) Copy the 3 files to the folder "/opt/solar"
+2.) Copy the 3 files to the folder "/opt/solar" and configure the "config.ini" file
 
 3.) add your script to the crontab: "crontab -e"
 
