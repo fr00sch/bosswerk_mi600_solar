@@ -21,6 +21,8 @@ TODOs:
 1.) Install all necessary packages to get you python system to run.
 
 2.) Copy the 3 files to the folder "/opt/solar" and configure the "config.ini" file
+ 
+2.1) The SerialNumber (SN) can be found on the main-Page and is needed to see, if the side is correctly loaded 
 
 3.) add your script to the crontab: "crontab -e"
 
