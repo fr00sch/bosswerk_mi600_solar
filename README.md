@@ -13,6 +13,7 @@ Different errors are treated:
 
 TODOs:
  - mqtt publish path in the config file
+ - mqtt auth with user and password
  - make a better installation description
  - better errorhandling with the mqtt server
 
