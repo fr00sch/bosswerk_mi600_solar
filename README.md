@@ -13,6 +13,17 @@ Different errors are treated:
 
 TODOs:
  - mqtt publish path in the config file
+ - make a better installation description
 
 NiceToHave:
  - better errorhandling
+
+<b>HowTo-Start:</b>
+
+1.) Install all necessary packages to get you python system to run.
+
+2.) Copy the 3 files to the folder "/opt/solar"
+
+3.) add your script to the crontab: "crontab -e"
+
+  "*  *   *   *   *     /opt/solar/solar.sh >> /opt/solar/logging.txt  2>&1"
