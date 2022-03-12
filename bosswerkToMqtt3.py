@@ -8,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import WebDriverException
 from selenium.common.exceptions import TimeoutException
 from pyvirtualdisplay import Display
+import os
 import re
 import paho.mqtt.client as mqtt
 import math
@@ -32,7 +33,7 @@ def getValueOfID(wait ,htmlID):
     status_m = 4
   return ret
 
-def getDataFromBosswerk(url):
+def getDataFromBosswerk(url, sn):
  ret0 = float("NaN")
  ret1 = float("NaN")
  ret2 = float("NaN")
@@ -44,7 +45,7 @@ def getDataFromBosswerk(url):
       wait = WebDriverWait(browser, 10) 
       try:
         frame1 = wait.until(EC.frame_to_be_available_and_switch_to_it((By.NAME,'child_page')))
-        sn = wait.until(EC.text_to_be_present_in_element((By.ID,"webdata_sn"), "2106160187"))
+        sn = wait.until(EC.text_to_be_present_in_element((By.ID,"webdata_sn"), sn))
         ret0 = getValueOfID(wait, "webdata_now_p")
         ret1 = getValueOfID(wait, "webdata_today_e")
         ret2 = getValueOfID(wait, "webdata_total_e")
@@ -100,8 +101,10 @@ def sendData(client, in1, in2, in3, status_m):
 
 if __name__=='__main__':
   config = configparser.ConfigParser()
-  config.read('./config.ini')
+  path = os.path.dirname(__file__)
+  config.read(path+'/config.ini')
   url1 = config['BOSSWERK']['url']
+  sn1 = config['BOSSWERK']['sn']
   mqtt_ip = config['MQTT']['ip']
   mqtt_port = int(config['MQTT']['port'])
 
@@ -109,7 +112,7 @@ if __name__=='__main__':
   getDataCount = 0
   while getDataCount<10:
     print("Try-Number: "+str(getDataCount))
-    power, today, total, status_r = getDataFromBosswerk(url1)
+    power, today, total, status_r = getDataFromBosswerk(url1,sn1)
     print("Power: "+str(power)+" W")
     print("Today: "+str(today)+" kWh")
     print("Total: "+str(total)+" kWh")
