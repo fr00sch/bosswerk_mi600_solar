@@ -18,10 +18,12 @@ import configparser
 status_m = 10
 status = {0: 'Online', 2: "DataError", 3: 'Offline', 4:"TimeoutError", 10:"undefined"}
 
-def getValueOfID(wait ,htmlID):
+
+def getIntegerOfID(wait ,htmlID):
   ret = float("NaN")
   try:
     value = wait.until(EC.presence_of_element_located((By.ID, htmlID))).text
+    #print(value)
     value_array=re.findall("\d+",value)
     if len(value_array)>0:
       ret = float(value_array[0])
@@ -32,6 +34,23 @@ def getValueOfID(wait ,htmlID):
     #print(e)
     status_m = 4
   return ret
+
+def getFloatOfID(wait ,htmlID):
+  ret = float("NaN")
+  try:
+    value = wait.until(EC.presence_of_element_located((By.ID, htmlID))).text
+    #print(value)
+    value_array=re.findall("\d+\.\d+",value)
+    if len(value_array)>0:
+      ret = float(value_array[0])
+    else:
+      print(value)
+      status_m = 2
+  except TimeoutException as e:
+    #print(e)
+    status_m = 4
+  return ret
+
 
 def getDataFromBosswerk(url, sn):
  ret0 = float("NaN")
@@ -46,9 +65,9 @@ def getDataFromBosswerk(url, sn):
       try:
         frame1 = wait.until(EC.frame_to_be_available_and_switch_to_it((By.NAME,'child_page')))
         sn = wait.until(EC.text_to_be_present_in_element((By.ID,"webdata_sn"), sn))
-        ret0 = getValueOfID(wait, "webdata_now_p")
-        ret1 = getValueOfID(wait, "webdata_today_e")
-        ret2 = getValueOfID(wait, "webdata_total_e")
+        ret0 = getIntegerOfID(wait, "webdata_now_p")
+        ret1 = getFloatOfID(wait, "webdata_today_e")
+        ret2 = getFloatOfID(wait, "webdata_total_e")
         if math.isnan(ret0) or math.isnan(ret1) or math.isnan(ret2):
          status_m=2
         else:
