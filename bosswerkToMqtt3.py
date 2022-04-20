@@ -93,9 +93,10 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print(msg.topic+":"+str(msg.payload))
 
-def connectMQTT(ip, port):
+def connectMQTT(ip, port, username, password):
  #https://pypi.org/project/paho-mqtt/
  client = mqtt.Client()
+ client.username_pw_set(username, password)
  client.on_connect = on_connect
  client.on_message = on_message
  #with mqtt.Client(client_id="0", clean_session=True, userdata=None, protocol="MQTTv311", transport="tcp") as client:
@@ -126,6 +127,8 @@ if __name__=='__main__':
   sn1 = config['BOSSWERK']['sn']
   mqtt_ip = config['MQTT']['ip']
   mqtt_port = int(config['MQTT']['port'])
+  mqtt_username = config['MQTT']['username']
+  mqtt_password = config['MQTT']['password']
 
   print(datetime.today().strftime('%Y-%m-%d %H:%M:%S'))
   getDataCount = 0
@@ -139,6 +142,6 @@ if __name__=='__main__':
       break
     else:
       getDataCount = getDataCount + 1
-  client = connectMQTT(mqtt_ip, mqtt_port)
+  client = connectMQTT(mqtt_ip, mqtt_port, mqtt_username, mqtt_password)
   sendData(client, power, today, total, status_r)
   print("Status: "+status[status_r])
