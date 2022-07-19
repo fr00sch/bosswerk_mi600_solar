@@ -121,7 +121,7 @@ def sendData(client, in1, in2, in3, status_m):
 
 if __name__=='__main__':
   config = configparser.ConfigParser()
-  path = os.path.dirname(__file__)
+  path = os.path.dirname(os.path.abspath(__file__))
   config.read(path+'/config.ini')
   url1 = config['BOSSWERK']['url']
   sn1 = config['BOSSWERK']['sn']
