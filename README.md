@@ -27,3 +27,14 @@ TODOs:
 3.) add your script to the crontab: "crontab -e"
 
   "*  *   *   *   *     /opt/solar/solar.sh >> /opt/solar/logging.txt  2>&1"
+
+Hint: Please notice, that different python modules are needed. Depends on missing modules use:
+
+4.0) apt-get install python3-pip
+
+4.1) pip install selenium
+
+4.2) pip install pyvirtualdisplay
+
+4.3) pip install paho-mqtt
+
