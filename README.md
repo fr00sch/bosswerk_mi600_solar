@@ -38,3 +38,5 @@ Hint: Please notice, that different python modules are needed. Depends on missin
 
 4.3) pip install paho-mqtt
 
+4.4) pip install xvfbwrapper
+
